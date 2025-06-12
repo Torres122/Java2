@@ -1,8 +1,10 @@
 package com.torresprojetc.aula.config;
 
+import com.torresprojetc.aula.entities.Category;
 import com.torresprojetc.aula.entities.Order;
 import com.torresprojetc.aula.entities.User;
 import com.torresprojetc.aula.entities.enuns.OrderStatus;
+import com.torresprojetc.aula.repositorys.CategoryRepository;
 import com.torresprojetc.aula.repositorys.OrderRepository;
 import com.torresprojetc.aula.repositorys.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,8 @@ public class testConfig implements CommandLineRunner {
     private UserRepository userRepository;
     @Autowired
     private OrderRepository orderRepository;
-
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -33,6 +36,10 @@ public class testConfig implements CommandLineRunner {
         Order o1 = new Order(null, Instant.now(), OrderStatus.SHIPPED,u1);
         Order o2 = new Order(null, Instant.now(),OrderStatus.WAITING_PAYMENT,u2);
         Order o3 = new Order(null, Instant.now(),OrderStatus.DELIVERED,u1);
+
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
 
         userRepository.saveAll(Arrays.asList(u1,u2));
         orderRepository.saveAll(Arrays.asList(o1,o2,o3));
