@@ -1,7 +1,8 @@
 package com.torresprojetc.aula.resouces;
 
-import com.torresprojetc.aula.entities.Category;
-import com.torresprojetc.aula.services.CategoryService;
+import com.torresprojetc.aula.entities.Order;
+import com.torresprojetc.aula.entities.Product;
+import com.torresprojetc.aula.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,24 +15,26 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/categories")
-public class CategoryResouce {
+@RequestMapping (value = "/products")
+public class ProductResouce {
+
 
     @Autowired
-    private CategoryService categoryService;
+        private ProductService productService;
+
 
     @GetMapping
-    public ResponseEntity<List<Category>> findAll() {
-        List<Category> categoryList = categoryService.findAll();
-        return ResponseEntity.ok().body(categoryList);
+    public ResponseEntity<List<Product>> findAll() {
+        List<Product> productList = productService.findAll();
+        return ResponseEntity.ok().body(productList);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> findById(@PathVariable Long id) {
-        return categoryService.findById(id)
+    public ResponseEntity<Product> findById(@PathVariable Long id) {
+        return productService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoria não encontrado com id: " + id)
+                        new ResponseStatusException(HttpStatus.NOT_FOUND, "Product não encontrado com id: " + id)
                 );
     }
 
